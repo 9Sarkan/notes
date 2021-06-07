@@ -71,11 +71,19 @@ func (user *User) Validate(action string) map[string]string {
 		if user.Password == "" {
 			errorMessage["password_required"] = "password_required"
 		}
-	case "update":
-	case "forgotPassword":
 	default:
-
+		if user.FirstName == "" {
+			errorMessage["first_name_required"] = "first_name required"
+		}
+		if user.LastName == "" {
+			errorMessage["last_name_required"] = "last_name required"
+		}
+		if user.Password == "" {
+			errorMessage["password_required"] = "password required"
+		}
+		if user.Password != "" && len(user.Password) < 7 {
+			errorMessage["invalid_password"] = "password is invalid"
+		}
 	}
-
 	return errorMessage
 }
